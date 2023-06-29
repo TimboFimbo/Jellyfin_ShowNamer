@@ -42,16 +42,16 @@ How to Download and Use the Jellyfin Show Namer:
         ----> .../Friends (1994)
         |     	  |
         |     	  ----> .../Season 1
-        |     	 |         |
-        |     	 |         ----> .../Friends_DVDRip_S01_E01.mkv
-        |     	 |         |
-        |     	 |         ----> .../Friends_DVDRip_S01_E02.mkv
+        |     	  |         |
+        |     	  |         ----> .../Friends_DVDRip_S01_E01.mkv
+        |     	  |         |
+        |     	  |         ----> .../Friends_DVDRip_S01_E02.mkv
         |     	  |
         |     	  ----> .../Season 2
-        |                  |
-        |                  ----> .../Friends iTunes S02E01.avi
-        |                  |
-        |                  ----> .../Friends iTunes S02E02.avi
+        |                   |
+        |                   ----> .../Friends iTunes S02E01.avi
+        |                   |
+        |                   ----> .../Friends iTunes S02E02.avi
         |
         ----> .../Spaced (1999)
                   |
