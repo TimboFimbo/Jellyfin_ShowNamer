@@ -99,8 +99,8 @@ How to Download and Use the Jellyfin Show Namer:
 
 7. If everything goes correctly, you will now be presented with each season's episodes, one season 
     at a time. Check that all episodes are listed and in order and if so, type 'r' to rename. You
-    can also type 's' to enter episode numbers to skip, which is good for missing files or double
-    episodes (such as S02E21-22), or 'c' to cancel and move onto the next season.
+    can also type 's' to enter episode numbers to skip, which is good for missing files, 'd' to enter
+    double episodes ('21' becomes S02E21-22), or 'c' to cancel and move onto the next season.
 
 Extra Information:
 
@@ -113,9 +113,10 @@ Extra Information:
       their extensions into the '@acceptedFiles' array towards the top of the script then running 
       again.
 
-   - There is currently no way to deal with episodes that come packed in twos, such as with many
-      cartoons, except to individually add every second episode to the Skip list. I'll add something
-      like an 'Increment By...' option, or something like that.
+   - Episodes that come in twos, such as with shorter cartoons, must currently be entered as double
+       episodes, one at a time, so I may add an 'all doubles' option. There is also no way to skip and
+       add doubles to the same season, so I'll add a syntax for that (possibly '-s 2 4 -d 5', which
+       would skip episodes 2 and 4 and turn episode 5 into E05-E06)
 
    - Finally, I'm currenty writing a setup guide for Jellyfin Media Server on Raspberry Pi, which
       includes this program, so I'll link to that once it's done. There are plenty of great

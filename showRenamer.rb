@@ -33,8 +33,9 @@ class FileSorter
         @sorted = @files.sort
     end
 
-    def rename_files(skips = Array.new)
+    def rename_files(skips = Array.new, doubles = Array.new)
         @skips = skips
+        @doubles = doubles
         @numberRenamed = 0
         @firstPassNumber = 1001
 
@@ -56,6 +57,7 @@ class FileSorter
         end
 
         @sortedAndTempNamed.each do |fileName|
+            # require 'debug'
             if !File.directory? fileName
                 if @acceptedFiles.include? File.extname(fileName)
                     while @skips.include? @episodeCount.to_s
@@ -63,8 +65,16 @@ class FileSorter
                     end
                     @snFormat = format('%02d', @seasonNum).to_s
                     @ecFormat = format('%02d', @episodeCount).to_s
+                    @ecdFormat = format('%02d', @episodeCount+1).to_s
                     @nameSuffix = File.extname(fileName)
-                    newName = @folder + @seriesName + " " + @seasonPrefix + @snFormat + @episodePrefix + @ecFormat + @nameSuffix
+
+                    newName = @folder + @seriesName + " " + @seasonPrefix + @snFormat + @episodePrefix + @ecFormat
+                    if @doubles.include? @episodeCount.to_s
+                        newName += ("-" + @episodePrefix + @ecdFormat)
+                        @episodeCount = @episodeCount+1
+                    end
+                    newName += @nameSuffix
+
                     File.rename(fileName, newName)
                     @episodeCount = @episodeCount+1
                     @numberRenamed = @numberRenamed+1
@@ -111,7 +121,7 @@ if __FILE__ == $0
             puts ""
 
             if !justChecking
-                puts "Enter R to Rename, S to Skip Numbers, or C to Cancel"
+                puts "Enter R to Rename, S to Skip Numbers, D to add Double Episodes, or C to Cancel"
                 likeToRename = gets.chomp
 
                 if likeToRename[0,1] == 'R' || likeToRename[0,1] == 'r'
@@ -121,7 +131,13 @@ if __FILE__ == $0
                 elsif likeToRename[0,1] == 'S' || likeToRename[0,1] == 's'
                     puts "Please enter episode numbers to skip - example: 6 13 21"
                     filesToSkip = gets.chomp.split(' ')
-                    numberOfFiles = fs.rename_files(filesToSkip)
+                    numberOfFiles = fs.rename_files(filesToSkip, Array.new)
+                    puts numberOfFiles.to_s + " files renamed"
+                    puts ""
+                elsif likeToRename[0,1] == 'D' || likeToRename[0,1] == 'd'
+                    puts "Please enter the first number of each double episode - example: entering 24 results in E24-E25"
+                    doubleEpisodes = gets.chomp.split(' ')
+                    numberOfFiles = fs.rename_files(Array.new, doubleEpisodes)
                     puts numberOfFiles.to_s + " files renamed"
                     puts ""
                 else
